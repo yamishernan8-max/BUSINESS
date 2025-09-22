@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Business Center - Selección de Perfil</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Montserrat', sans-serif; margin:0; padding:0; background:#f0f2f5; }
+.hidden { display:none; }
+
+.banner { position: relative; height:100vh; overflow:hidden; }
+.banner-video { width:100%; height:100%; object-fit:cover; filter:brightness(0.5); }
+
+.banner-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; text-align:center; }
+.banner-content h1 { font-size:3em; margin-bottom:20px; letter-spacing:4px; }
+
+.buttons .btn { font-size:1.2em; padding:15px 30px; margin:10px; border-radius:10px; transition:transform 0.3s; background:#4CAF50; color:#fff; border:none; cursor:pointer;}
+.buttons .btn:hover { transform:scale(1.1); background-color:#45a049; }
+
+.section { padding:20px; max-width:1000px; margin:20px auto; background:#fff; border-radius:15px; box-shadow:0 6px 20px rgba(0,0,0,0.2); }
+
+.grid { display:flex; flex-wrap:wrap; gap:15px; justify-content:center; }
+
+.card { display:flex; flex-direction:column; align-items:center; padding:10px; border:2px solid #ddd; border-radius:15px; cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; width:140px; background-color:#fff;}
+.card img { width:120px; height:auto; border-radius:10px; margin-bottom:5px; transition: transform 0.3s, box-shadow 0.3s; }
+.card:hover img { transform: scale(1.1); box-shadow:0 6px 15px rgba(0,0,0,0.3); }
+.card input[type="checkbox"]{display:none;}
+.card label { display:flex; flex-direction:column; align-items:center; cursor:pointer; }
+.card input[type="checkbox"]:checked + label img { border:3px solid #4CAF50; box-shadow:0 6px 15px rgba(76,175,80,0.6); transform:scale(1.1); }
+.card input[type="checkbox"]:checked + label span { color:#4CAF50; transform:scale(1.05); }
+.card label span { font-weight:600; text-align:center; transition: color 0.3s, transform 0.3s; }
+
+input[type="text"], input[type="datetime-local"], input[type="password"] { width:100%; padding:10px; margin:8px 0; border-radius:10px; border:1px solid #ccc; }
+
+.btn-home { background:#f39c12; color:#fff; border:none; border-radius:8px; padding:5px 10px; cursor:pointer; font-size:1.1em; margin-bottom:10px; }
+.btn-home:hover { background:#e67e22; }
+
+.btn { background:#4CAF50; color:#fff; border:none; cursor:pointer; padding:12px 20px; margin:5px; font-weight:600; border-radius:10px; box-shadow:0 3px 6px rgba(0,0,0,0.2); transition:all 0.3s; }
+.btn:hover { background:#45a049; transform:translateY(-2px); }
+
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { border:1px solid #ccc; padding:10px; text-align:center; }
+th { background:#4CAF50; color:#fff; font-weight:600; }
+tr:nth-child(even) { background-color:#f2f2f2; }
+tr:hover { background-color:#e6ffe6; }
+td { vertical-align:middle; }
+#tablaSection button { margin-top:10px; padding:8px 15px; font-size:14px; background-color:#4CAF50; color:#fff; border:none; border-radius:5px; cursor:pointer; transition:0.3s; }
+#tablaSection button:hover { background-color:#45a049; }
+
+.personal-overlay {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.9);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.personal-overlay h2, .personal-overlay h3 { color: #333; }
+
+.personal-overlay input[type="text"],
+.personal-overlay input[type="password"],
+.personal-overlay input[type="datetime-local"] { width: 90%; padding: 10px; margin: 8px 0; border-radius: 10px; border: 1px solid #ccc; }
+
+.personal-overlay .btn { margin-top: 10px; }
+
+@media(max-width:768px){.grid{flex-direction:column;align-items:center;}.card img{width:100px;}.banner-content h1{font-size:2em;}}
+</style>
+</head>
+<body>
+
+<!-- Banner -->
+<section class="banner">
+  <video autoplay muted loop playsinline class="banner-video">
+    <source src="Vídeo sin título ‐ Hecho con Clipchamp (1).mp4" type="video/mp4"/>
+    Tu navegador no soporta video.
+  </video>
+
+  <div class="banner-content">
+    <h1>F O N T A B E L L A</h1>
+  </div>
+
+  <!-- Personal sobre video -->
+  <div class="personal-overlay hidden" id="personalOverlay">
+    <h2>Ingrese la contraseña:</h2>
+    <input type="password" id="passPersonal" placeholder="Contraseña">
+    <button class="btn" id="loginPersonal">Ingresar</button>
+
+    <div id="personalForm" class="hidden">
+      <h3>Registro de Devolución</h3>
+      <input type="text" id="nombreDevol" placeholder="Nombre Cliente">
+      <input type="text" id="dpiDevol" placeholder="DPI Cliente">
+      <input type="text" id="salaDevol" placeholder="Sala">
+      <input type="datetime-local" id="fechaPersonal">
+      <input type="text" id="recibidoPor" placeholder="Recibido por">
+
+      <div class="grid">
+        <div class="card"><input type="checkbox" id="rallymicP"><label for="rallymicP"><img src="accessory-rally-mic-pod.jpg"><span>Rally Mic</span></label></div>
+        <div class="card"><input type="checkbox" id="clickshareP"><label for="clickshareP"><img src="ClickShare-Button-detail-jpg.jpg"><span>ClickShare</span></label></div>
+        <div class="card"><input type="checkbox" id="micP"><label for="micP"><img src="Captura de pantalla 2025-09-19 222013.png"><span>Mic</span></label></div>
+        <div class="card"><input type="checkbox" id="rallyplusP"><label for="rallyplusP"><img src="rally-plus-04.png"><span>Rally Plus</span></label></div>
+        <div class="card"><input type="checkbox" id="camaraP"><label for="camaraP"><img src="rally-plus-03.png"><span>Cámara</span></label></div>
+      </div>
+
+      <button class="btn" id="guardarPersonal">Guardar</button>
+      <button class="btn" id="imprimirPersonal">Imprimir Carta</button>
+      <button class="btn" id="verTablaPersonal">Ver Tabla</button>
+    </div>
+  </div>
+</section>
+
+<!-- Selector de perfil -->
+<div id="selector" class="center-screen section">
+  <h1>Bienvenido a Business Center</h1>
+  <p>Seleccione su perfil para continuar</p>
+  <div class="buttons">
+    <button id="clienteBtn" class="btn">Cliente</button>
+    <button id="personalBtn" class="btn">Personal</button>
+  </div>
+</div>
+
+<!-- Sección Cliente -->
+<div id="clienteSection" class="hidden section">
+  <button class="btn-home" id="homeCliente">🏠 Inicio</button>
+  <h2>Seleccione los equipos que recibirá</h2>
+  <div class="grid">
+    <div class="card"><input type="checkbox" id="rallymic"><label for="rallymic"><img src="accessory-rally-mic-pod.jpg"><span>Rally Mic</span></label></div>
+    <div class="card"><input type="checkbox" id="clickshare"><label for="clickshare"><img src="ClickShare-Button-detail-jpg.jpg"><span>ClickShare</span></label></div>
+    <div class="card"><input type="checkbox" id="mic"><label for="mic"><img src="Captura de pantalla 2025-09-19 222013.png"><span>Mic</span></label></div>
+    <div class="card"><input type="checkbox" id="rallyplus"><label for="rallyplus"><img src="rally-plus-04.png"><span>Rally Plus</span></label></div>
+    <div class="card"><input type="checkbox" id="camara"><label for="camara"><img src="rally-plus-03.png"><span>Cámara</span></label></div>
+  </div>
+
+  <h3>Datos del Cliente</h3>
+  <input type="text" id="nombreCliente" placeholder="Nombre completo">
+  <input type="text" id="dpiCliente" placeholder="DPI">
+  <input type="text" id="salaCliente" placeholder="Sala">
+  <input type="datetime-local" id="fechaCliente">
+
+  <button class="btn" id="guardarCliente">Guardar</button>
+  <button class="btn" id="imprimirCliente">Imprimir Carta</button>
+</div>
+
+<!-- Tabla combinada -->
+<div id="tablaSection" class="hidden section">
+  <h2>Tabla Combinada Cliente / Personal</h2>
+  <table id="tablaCombinada">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>DPI</th>
+        <th>Sala</th>
+        <th>Fecha Cliente</th>
+        <th>Productos Entregados</th>
+        <th>Fecha Personal</th>
+        <th>Productos Devueltos</th>
+        <th>Recibido Por</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button id="exportExcel">Exportar Tabla a Excel</button>
+  <button id="volverTabla">Regresar a Personal</button>
+</div>
+
+<script>
+// Variables
+const selector = document.getElementById('selector');
+const clienteSection = document.getElementById('clienteSection');
+const personalOverlay = document.getElementById('personalOverlay');
+const personalForm = document.getElementById('personalForm');
+const tablaSection = document.getElementById('tablaSection');
+
+const homeCliente = document.getElementById('homeCliente');
+const volverTabla = document.getElementById('volverTabla');
+
+const guardarCliente = document.getElementById('guardarCliente');
+const imprimirCliente = document.getElementById('imprimirCliente');
+
+const loginPersonal = document.getElementById('loginPersonal');
+const guardarPersonal = document.getElementById('guardarPersonal');
+const imprimirPersonal = document.getElementById('imprimirPersonal');
+const verTablaPersonal = document.getElementById('verTablaPersonal');
+
+const exportExcel = document.getElementById('exportExcel');
+
+let registros = JSON.parse(localStorage.getItem('registros')||'[]');
+
+function actualizarTabla(){
+  const tbody = document.querySelector('#tablaCombinada tbody');
+  tbody.innerHTML = '';
+  registros.sort((a,b)=>a.dpi.localeCompare(b.dpi));
+  registros.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.nombre||''}</td>
+      <td>${r.dpi||''}</td>
+      <td>${r.sala||''}</td>
+      <td>${r.fechaCliente||''}</td>
+      <td>${r.productosCliente||''}</td>
+      <td>${r.fechaPersonal||''}</td>
+      <td>${r.productosPersonal||''}</td>
+      <td>${r.recibidoPor||''}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function obtenerProductos(ids){
+  return ids.map(id=>document.getElementById(id).checked?document.getElementById(id).nextElementSibling.innerText:null)
+            .filter(Boolean).join(', ');
+}
+
+// Selector de perfil
+document.getElementById('clienteBtn').addEventListener('click', ()=>{
+  selector.classList.add('hidden');
+  clienteSection.classList.remove('hidden');
+});
+document.getElementById('personalBtn').addEventListener('click', ()=>{
+  selector.classList.add('hidden');
+  personalOverlay.classList.remove('hidden');
+});
+
+// Home Cliente
+homeCliente.addEventListener('click', ()=>{
+  clienteSection.classList.add('hidden'); 
+  selector.classList.remove('hidden');
+});
+
+// Guardar Cliente
+guardarCliente.addEventListener('click', ()=>{
+  const productos = obtenerProductos(['rallymic','clickshare','mic','rallyplus','camara']);
+  if(!document.getElementById('nombreCliente').value || !document.getElementById('dpiCliente').value) return alert('Ingrese Nombre y DPI');
+  const nuevo = {
+    nombre: document.getElementById('nombreCliente').value,
+    dpi: document.getElementById('dpiCliente').value,
+    sala: document.getElementById('salaCliente').value,
+    fechaCliente: document.getElementById('fechaCliente').value,
+    productosCliente: productos,
+    fechaPersonal:'', productosPersonal:'', recibidoPor:''
+  };
+  registros.push(nuevo);
+  localStorage.setItem('registros', JSON.stringify(registros));
+  actualizarTabla();
+  alert('Guardado Cliente');
+});
+
+// Imprimir Cliente
+imprimirCliente.addEventListener('click', ()=>{
+  const nombre = document.getElementById('nombreCliente').value;
+  const dpi = document.getElementById('dpiCliente').value;
+  const sala = document.getElementById('salaCliente').value;
+  const fecha = document.getElementById('fechaCliente').value;
+  const productos = obtenerProductos(['rallymic','clickshare','mic','rallyplus','camara']);
+  if(!nombre || !dpi) return alert('Ingrese Nombre y DPI');
+  let ventana = window.open('', '', 'width=800,height=600');
+  ventana.document.write(`<h2>Carta de Responsabilidad - Cliente</h2>
+    <p><strong>Nombre:</strong> ${nombre}</p>
+    <p><strong>DPI:</strong> ${dpi}</p>
+    <p><strong>Sala:</strong> ${sala}</p>
+    <p><strong>Fecha y Hora:</strong> ${fecha}</p>
+    <p><strong>Equipos entregados:</strong> ${productos}</p>
+    <p>Firma: ________________________</p>`);
+  ventana.document.close();
+  ventana.print();
+});
+
+// Login Personal
+loginPersonal.addEventListener('click', ()=>{
+  const pass = document.getElementById('passPersonal').value;
+  if(pass==='*BCHQ2024#*'){
+    personalForm.classList.remove('hidden');
+    document.getElementById('passPersonal').style.display='none';
+    loginPersonal.style.display='none';
+  } else {alert('Contraseña incorrecta');}
+});
+
+// Guardar Personal
+guardarPersonal.addEventListener('click', ()=>{
+  const productos = obtenerProductos(['rallymicP','clickshareP','micP','rallyplusP','camaraP']);
+  if(!document.getElementById('nombreDevol').value || !document.getElementById('dpiDevol').value) return alert('Ingrese Nombre y DPI');
+  const nuevo = {
+    nombre: document.getElementById('nombreDevol').value,
+    dpi: document.getElementById('dpiDevol').value,
+    sala: document.getElementById('salaDevol').value,
+    fechaCliente:'', productosCliente:'',
+    fechaPersonal: document.getElementById('fechaPersonal').value,
+    productosPersonal: productos,
+    recibidoPor: document.getElementById('recibidoPor').value
+  };
+  registros.push(nuevo);
+  localStorage.setItem('registros', JSON.stringify(registros));
+  actualizarTabla();
+  alert('Guardado Personal');
+});
+
+// Imprimir Personal
+imprimirPersonal.addEventListener('click', ()=>{
+  const nombre = document.getElementById('nombreDevol').value;
+  const dpi = document.getElementById('dpiDevol').value;
+  const sala = document.getElementById('salaDevol').value;
+  const fecha = document.getElementById('fechaPersonal').value;
+  const productos = obtenerProductos(['rallymicP','clickshareP','micP','rallyplusP','camaraP']);
+  const recibidoPor = document.getElementById('recibidoPor').value;
+  if(!nombre || !dpi) return alert('Ingrese Nombre y DPI');
+  let ventana = window.open('', '', 'width=800,height=600');
+  ventana.document.write(`<h2>Carta de Responsabilidad - Personal</h2>
+    <p><strong>Nombre:</strong> ${nombre}</p>
+    <p><strong>DPI:</strong> ${dpi}</p>
+    <p><strong>Sala:</strong> ${sala}</p>
+    <p><strong>Fecha y Hora:</strong> ${fecha}</p>
+    <p><strong>Equipos devueltos:</strong> ${productos}</p>
+    <p><strong>Recibido por:</strong> ${recibidoPor}</p>
+    <p>Firma: ________________________</p>`);
+  ventana.document.close();
+  ventana.print();
+});
+
+// Ver Tabla
+verTablaPersonal.addEventListener('click', ()=>{
+  personalOverlay.classList.add('hidden');
+  personalForm.classList.add('hidden');
+  tablaSection.classList.remove('hidden');
+});
+
+// Exportar Excel
+exportExcel.addEventListener('click', ()=>{
+  let table = document.getElementById('tablaCombinada');
+  let html = table.outerHTML.replace(/ /g,'%20');
+  let a = document.createElement('a');
+  a.href = 'data:application/vnd.ms-excel,' + html;
+  a.download = 'registros.xls';
+  a.click();
+});
+
+
+// Inicializar tabla
+
+actualizarTabla();
+// Botón Volver a Personal desde la tabla
+volverTabla.addEventListener('click', ()=>{
+  tablaSection.classList.add('hidden');      // Oculta la tabla
+  personalOverlay.classList.remove('hidden'); // Muestra el overlay de personal
+  // Si quieres que el formulario siga visible
+  personalForm.classList.remove('hidden');   
+});
+
+</script>
+
+</body>
+</html>
