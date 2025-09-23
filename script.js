@@ -1,4 +1,4 @@
-// --- Elementos ---
+
 const selector = document.getElementById('selector');
 const clienteSection = document.getElementById('clienteSection');
 const personalSection = document.getElementById('personalSection');
@@ -7,7 +7,7 @@ const personalContent = document.getElementById('personalContent');
 const tablaSection = document.getElementById('tablaSection');
 const loginDiv = document.getElementById('loginDiv');
 
-// --- Botones Inicio ---
+
 document.getElementById('homeCliente').addEventListener('click', () => {
   clienteSection.classList.add('hidden');
   selector.classList.remove('hidden');
@@ -20,7 +20,6 @@ document.getElementById('homePersonal').addEventListener('click', () => {
   loginDiv.classList.remove('hidden');
 });
 
-// --- Selección de perfil ---
 document.getElementById('clienteBtn').addEventListener('click', () => {
   selector.classList.add('hidden');
   clienteSection.classList.remove('hidden');
@@ -34,7 +33,6 @@ document.getElementById('personalBtn').addEventListener('click', () => {
   loginDiv.classList.remove('hidden');
 });
 
-// --- Login Personal ---
 document.getElementById('loginPersonal').addEventListener('click', () => {
   if(passwordPersonal.value === 'BCHQ2024#'){
     personalContent.classList.remove('hidden');
@@ -44,7 +42,7 @@ document.getElementById('loginPersonal').addEventListener('click', () => {
   }
 });
 
-// --- Guardar Cliente ---
+
 document.getElementById('clienteForm').addEventListener('submit', e => {
   e.preventDefault();
   const form = e.target;
@@ -72,7 +70,7 @@ document.getElementById('clienteForm').addEventListener('submit', e => {
   document.querySelectorAll('#clienteSection .producto').forEach(ch => ch.checked=false);
 });
 
-// --- Guardar Personal ---
+
 document.getElementById('personalForm').addEventListener('submit', e => {
   e.preventDefault();
   const form = e.target;
@@ -101,7 +99,7 @@ document.getElementById('personalForm').addEventListener('submit', e => {
   document.querySelectorAll('#personalSection .productoPersonal').forEach(ch => ch.checked=false);
 });
 
-// --- Ver Tabla Combinada ---
+
 document.getElementById('verTablas').addEventListener('click', () => {
   clienteSection.classList.add('hidden');
   personalSection.classList.add('hidden');
@@ -109,7 +107,7 @@ document.getElementById('verTablas').addEventListener('click', () => {
   renderTabla();
 });
 
-// --- Renderizar Tabla (Clientes y Personal separados) ---
+
 function renderTabla(){
   const tbody = document.querySelector('#tablaCombinada tbody');
   tbody.innerHTML = '';
@@ -117,7 +115,6 @@ function renderTabla(){
   const clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
   const personalArr = JSON.parse(localStorage.getItem('personal') || '[]');
 
-  // --- Mostrar clientes ---
   clientes.forEach(c => {
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>Cliente</td>
@@ -132,7 +129,7 @@ function renderTabla(){
     tbody.appendChild(tr);
   });
 
-  // --- Mostrar personal ---
+
   personalArr.forEach(p => {
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>Personal</td>
@@ -147,7 +144,7 @@ function renderTabla(){
     tbody.appendChild(tr);
   });
 
-  // --- Botón para regresar a Personal ---
+  
   if(!document.getElementById('backToPersonal')){
     const btn = document.createElement('button');
     btn.id = 'backToPersonal';
@@ -160,9 +157,26 @@ function renderTabla(){
     });
     tablaSection.appendChild(btn);
   }
+
+
+  if(!document.getElementById('clearStorage')){
+    const clearBtn = document.createElement('button');
+    clearBtn.id = 'clearStorage';
+    clearBtn.className = 'btn';
+    clearBtn.textContent = '🗑️ Borrar todos los registros';
+    clearBtn.addEventListener('click', () => {
+      if(confirm("¿Seguro que quieres eliminar TODOS los registros?")){
+        localStorage.removeItem('clientes');
+        localStorage.removeItem('personal');
+        renderTabla();
+        alert("Todos los registros fueron borrados");
+      }
+    });
+    tablaSection.appendChild(clearBtn);
+  }
 }
 
-// --- Exportar a Excel ---
+
 function exportExcelTabla(){
   const table = document.getElementById('tablaCombinada');
   const html = table.outerHTML.replace(/ /g,'%20');
@@ -173,3 +187,52 @@ function exportExcelTabla(){
   link.click();
 }
 document.getElementById('exportExcelPersonal').addEventListener('click', exportExcelTabla);
+
+function obtenerProductos(ids){
+  return ids.map(id => {
+    const el = document.getElementById(id);
+    return el && el.checked ? el.value : null;
+  }).filter(Boolean).join(', ');
+}
+
+document.getElementById('imprimirCliente').addEventListener('click', ()=>{
+  const nombre = document.getElementById('nombreCliente').value;
+  const dpi = document.getElementById('dpiCliente').value;
+  const sala = document.getElementById('salaCliente').value;
+  const fecha = document.getElementById('fechaCliente').value;
+  const productos = obtenerProductos(['rallymic','clickshare','mic','rallyplus','camara']);
+
+  if(!nombre || !dpi) return alert('Ingrese Nombre y DPI');
+
+  let ventana = window.open('', '', 'width=800,height=600');
+  ventana.document.write(`
+  <html>
+  <head>
+    <title>Carta de Responsabilidad</title>
+    <style>
+      body { font-family: 'Montserrat', sans-serif; margin: 40px; color: #333; }
+      .carta { border: 3px double #d1b161; padding: 30px; border-radius: 15px; background: #f9f5ef; }
+      h2 { text-align: center; color: #7d6b4f; margin-bottom: 30px; }
+      p { font-size: 16px; line-height: 1.5; margin: 10px 0; }
+      .productos { margin: 15px 0; font-weight: 600; }
+      .firma { margin-top: 50px; text-align: right; font-weight: 600; }
+      hr { border: none; border-top: 2px dashed #d1b161; margin: 30px 0; }
+    </style>
+  </head>
+  <body>
+    <div class="carta">
+      <h2>CARTA DE RESPONSABILIDAD</h2>
+      <p><strong>Nombre:</strong> ${nombre}</p>
+      <p><strong>DPI:</strong> ${dpi}</p>
+      <p><strong>Sala:</strong> ${sala}</p>
+      <p><strong>Fecha y Hora:</strong> ${fecha}</p>
+      <p class="productos"><strong>Equipos entregados:</strong> ${productos}</p>
+      <hr>
+      <p class="firma">Firma: ________________________</p>
+    </div>
+  </body>
+  </html>
+  `);
+  ventana.document.close();
+  ventana.print();
+});
