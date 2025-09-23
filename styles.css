@@ -1,188 +1,131 @@
-body { font-family: 'Montserrat', sans-serif; margin:0; padding:0; background:#f0f2f5; }
+body { 
+  font-family: 'Montserrat', sans-serif; 
+  margin:0; 
+  padding:0; 
+  background:#f5f2eb25; 
+  height:100vh;
+  overflow:hidden; 
+}
+
 .hidden { display:none; }
 
-.banner { position: relative; height:100vh; overflow:hidden; }
-.banner-video { width:100%; height:100%; object-fit:cover; filter:brightness(0.5); }
-.overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); }
-.banner-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; text-align:center; }
-.banner-content h1 { font-size:3em; margin-bottom:20px; letter-spacing:4px; }
-.buttons .btn { font-size:1.2em; padding:15px 30px; margin:10px; border-radius:10px; transition:transform 0.3s; }
-.buttons .btn:hover { transform:scale(1.1); background-color:#5c5f47; }
+.banner { 
+  position: relative; 
+  height: 60vh;
+  overflow: hidden; 
+}
 
-.section { padding:20px; max-width:1000px; margin:20px auto; background:#fff; border-radius:15px; box-shadow:0 6px 20px rgba(0,0,0,0.2); }
+.banner-video { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  filter: brightness(0.5); 
+}
+
+.banner-content { 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  color: #ffffff3e; 
+  text-align: center; 
+}
+
+.banner-content h1 { 
+  font-size: 2.5em; 
+  margin-bottom: 20px; 
+  letter-spacing: 4px; 
+  color:#e6d9c5; 
+}
+
+
+.section, 
+.personal-overlay, 
+#tablaSection {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background:#fefaf0; 
+  border-radius:15px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+  width:90%;
+  max-width:1000px;
+  max-height:85vh; 
+  overflow-y:auto;
+  padding:20px;
+  z-index:1000;
+}
+
+
+.buttons .btn { 
+  font-size:1.2em; 
+  padding:15px 30px; 
+  margin:10px; 
+  border-radius:10px; 
+  transition:transform 0.3s; 
+  background:#c2b280; 
+  color:#fff;
+  border:none;
+}
+.buttons .btn:hover { 
+  transform:scale(1.1); 
+  background-color:#a3916f; 
+}
+
 
 .grid { display:flex; flex-wrap:wrap; gap:15px; justify-content:center; }
 
-.card { display:flex; flex-direction:column; align-items:center; padding:10px; border:2px solid #ddd; border-radius:15px; cursor:pointer; transition:0.3s; width:140px; }
-.card img { width:120px; height:auto; border-radius:10px; margin-bottom:5px; }
-.card span { font-weight:600; text-align:center; }
-.card input[type="checkbox"]{display:none;}
-.card input[type="checkbox"]:checked + img { border:3px solid #969f68; box-shadow:0 4px 10px rgba(0,0,0,0.3); }
-.card input[type="checkbox"]:checked + img + span { color:#967b41; }
+.card { 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  padding:10px; 
+  border:2px solid #d9cbb3; 
+  border-radius:15px; 
+  cursor:pointer; 
+  transition:0.3s; 
+  width:140px; 
+  background:#fefaf0;
+}
+.card img { width:120px; border-radius:10px; margin-bottom:5px; }
 
-input[type="text"], input[type="datetime-local"], input[type="password"] { width:100%; padding:10px; margin:8px 0; border-radius:10px; border:1px solid #ccc; }
 
-.btn { background:#4CAF50; color:#fff; border:none; cursor:pointer; padding:12px 20px; margin:5px; font-weight:600; border-radius:10px; box-shadow:0 3px 6px rgba(0,0,0,0.2); transition:all 0.3s; }
-.btn:hover { background:#97993f; transform:translateY(-2px); }
+input[type="text"], input[type="datetime-local"], input[type="password"] { 
+  width:100%; 
+  padding:10px; 
+  margin:8px 0; 
+  border-radius:10px; 
+  border:1px solid #ccc; 
+  background:#fdf7ec;
+}
 
-.btn-home { background:#f39c12; color:#fff; border:none; border-radius:8px; padding:5px 10px; cursor:pointer; font-size:1.1em; margin-bottom:10px; }
-.btn-home:hover { background:#e67e22; }
+
+.btn { 
+  background:#c2b280; 
+  color:#fff; 
+  border:none; 
+  cursor:pointer; 
+  padding:12px 20px; 
+  margin:5px; 
+  font-weight:600; 
+  border-radius:10px; 
+  box-shadow:0 3px 6px rgba(0,0,0,0.2); 
+  transition:all 0.3s; 
+}
+.btn:hover { 
+  background:#a3916f; 
+  transform:translateY(-2px); 
+}
 
 table { width:100%; border-collapse:collapse; margin-top:20px; }
-th, td { border:1px solid #ccc; padding:10px; text-align:center; }
-th { background:#f2f2f2; }
+th, td { border:1px solid #d9cbb3; padding:10px; text-align:center; }
+th { background:#bfa875; color:#fff; }
+tr:nth-child(even) { background-color:#fdf7ec; }
+tr:hover { background-color:#f4ebd7; }
 
-.header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-.form-buttons { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-start; }
 
-@media(max-width:768px){.grid{flex-direction:column;align-items:center;}.card img{width:100px;}.banner-content h1{font-size:2em;}}
-/* --- Mejoras para tabla combinada --- */
-table {
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th {
-  background-color: #d1b161; /* verde uniforme con botones */
-  color: white;
-  font-weight: 600;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #e6ffe6; /* verde claro al pasar el mouse */
-}
-
-td {
-  vertical-align: middle;
-  text-align: center;
-}
-
-/* Botones dentro de la sección de tabla */
-#tablaSection button {
-  margin-top: 10px;
-  padding: 8px 15px;
-  font-size: 14px;
-  background-color: #bfd578;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#tablaSection button:hover {
-  background-color: #b0c577;
-}
-
-/* Imprimir solo la tabla */
-@media print {
-  body * { visibility: hidden; }
-  #tablaSection, #tablaSection * { visibility: visible; }
-  #tablaSection { position: absolute; top: 0; left: 0; width: 100%; }
-}
-/* --- Tarjetas de productos dinámicas --- */
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border: 2px solid #ddd;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-  width: 140px;
-  background-color: #fff;
-}
-
-.card img {
-  width: 120px;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 5px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover img {
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-}
-
-.card input[type="checkbox"]{ display: none; }
-
-.card input[type="checkbox"]:checked + img {
-  border: 3px solid #5b6a24;
-  box-shadow: 0 6px 15px rgba(169, 171, 107, 0.6);
-  transform: scale(1.1);
-}
-
-.card span {
-  font-weight: 600;
-  text-align: center;
-  transition: color 0.3s, transform 0.3s;
-}
-
-.card input[type="checkbox"]:checked + img + span {
-  color: #4f482e;
-  transform: scale(1.05);
-}
-
-.card input[type="checkbox"]:active + img {
-  transform: scale(0.95);
-}
-<!-- Banner con Personal sobre el video -->
-<section class="banner">
-  <video autoplay muted loop playsinline class="banner-video">
-    <source src="video.mp4" type="video/mp4"/>
-    Tu navegador no soporta video.
-  </video>
-
-  <div class="personal-overlay hidden" id="personalOverlay">
-    <h2>Ingrese la contraseña:</h2>
-    <input type="password" id="passPersonal" placeholder="Contraseña">
-    <button class="btn" id="loginPersonal">Ingresar</button>
-
-    <div id="personalForm" class="hidden">
-      <h3>Registro de Devolución</h3>
-      <input type="text" id="nombreDevol" placeholder="Nombre Cliente">
-      <input type="text" id="dpiDevol" placeholder="DPI Cliente">
-      <input type="text" id="salaDevol" placeholder="Sala">
-      <input type="datetime-local" id="fechaPersonal">
-      <input type="text" id="recibidoPor" placeholder="Recibido por">
-
-      <div class="grid">
-        <div class="card"><input type="checkbox" id="rallymicP"><label for="rallymicP"><img src="accessory-rally-mic-pod.jpg"><span>Rally Mic</span></label></div>
-        <div class="card"><input type="checkbox" id="clickshareP"><label for="clickshareP"><img src="ClickShare.jpg"><span>ClickShare</span></label></div>
-        <div class="card"><input type="checkbox" id="micP"><label for="micP"><img src="mic.jpg"><span>Mic</span></label></div>
-        <div class="card"><input type="checkbox" id="rallyplusP"><label for="rallyplusP"><img src="rally-plus.png"><span>Rally Plus</span></label></div>
-        <div class="card"><input type="checkbox" id="camaraP"><label for="camaraP"><img src="camara.jpg"><span>Cámara</span></label></div>
-      </div>
-
-      <button class="btn" id="guardarPersonal">Guardar</button>
-      <button class="btn" id="imprimirPersonal">Imprimir Carta</button>
-      <button class="btn" id="verTablaPersonal">Ver Tabla</button>
-    </div>
-  </div>
-</section>
-@media (max-width: 768px) {
-  .grid { flex-direction: column; align-items: center; }
-  .card { width: 80%; max-width: 200px; }
-  .banner-content h1 { font-size: 2em; }
-}
-@media (max-width: 480px) {
-  .grid { gap: 10px; }
-  .card img { width: 80px; }
-  .buttons .btn { padding: 10px 20px; font-size: 1em; }
-}
-
-.personal-overlay {
-  width: 90%;
-  max-width: 650px;
-  padding: 20px;
-}
 @media(max-width:768px){
-  input, .btn { font-size: 0.9em; padding: 8px 12px; }
+  .grid{flex-direction:column;align-items:center;}
+  .card{width:80%;max-width:200px;}
+  .banner-content h1{font-size:2em;}
 }
